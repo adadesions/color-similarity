@@ -3,15 +3,24 @@
     To draw an image and get image data to other canvas
 */
 
+init();
+filename = document.getElementById('filename');
+filename.addEventListener('change', init);
+
+
 //  Import file to system
-var img = new Image();
-img.src = '../data/train_1_resize.jpg';
-img.onload = function() {
-    draw(this);
-};
+function init(){
+    var img = new Image();
+    filename = document.getElementById('filename').value;
+    img.src = '../data/'+filename;
+    img.onload = function() {
+        draw(this);
+    };
+}
+
 
 function reconstruct_rgb(data) {
-    recon_img = []
+    recon_img = [];
     for(var i = 0, n = data.length; i < n; i += 4) {
         var red = data[i];
         var green = data[i+1];
@@ -19,6 +28,42 @@ function reconstruct_rgb(data) {
         recon_img.push([red, green, blue]);
     }
     return recon_img;
+}
+
+
+function norm(x, y) {
+    // x, y are a column vector.
+    if(x.length == y.length) {
+        sum = 0;
+        for(var i = 0; i < x.length; i++) {
+            sum += Math.pow(x[i] - y[i], 2);
+        }
+        return Math.sqrt(sum);
+    }
+    else {
+        console.log('Length of two vector MUST the same length.');
+        return -1;
+    }
+}
+
+
+function rms(x, y) {
+    // x, y are a column vector.
+
+    if(x.length != y.length) return -1;
+
+    vec = [];
+    for(var i = 0; i < x.length; i++) {
+        vec.push(norm(x[i], y[i]));
+    }
+
+    sum = 0;
+    n = x.length;
+    for (let v of vec) {
+        sum += Math.pow(v, 2);
+    }
+
+    return Math.sqrt(sum/n);
 }
 
 // Drawing image function
@@ -39,8 +84,8 @@ function draw(img) {
     img.style.display = 'none';
 
     // Init blank image for cropping purpose
-    var cw = 210;
-    var ch = 210;
+    var cw = document.getElementById('sample-width').value;
+    var ch = document.getElementById('sample-height').value;
     var crop_img = ctx.createImageData(cw, ch);
 
     // Preview function use to get partialy image data from main canvas
@@ -50,6 +95,8 @@ function draw(img) {
         var y = event.layerY;
         var mouse_position = document.getElementById('mouse-position');
 
+        cw = document.getElementById('sample-width').value;
+        ch = document.getElementById('sample-height').value;
         // display mouse position on screen
         mouse_position.innerHTML = '('+x+', '+y+')';
 
@@ -76,14 +123,21 @@ function draw(img) {
 
         if (canvas_id == 'cap-master') {
             is_clicked = true;
+            crop_fnc('cap-compare');
         }
         
         if (canvas_id == 'cap-compare' && is_clicked) {
             var master = document.getElementById('cap-master').getContext('2d');
-            data = master.getImageData(0, 0, cw, ch).data;
-            rgb = reconstruct_rgb(data);
-            console.log(rgb);
-        };
+            var compare = document.getElementById('cap-compare').getContext('2d');
+            master_data = master.getImageData(0, 0, cw, ch).data;
+            compare_data = compare.getImageData(0, 0, cw, ch).data;
+            master_rgb = reconstruct_rgb(master_data);
+            compare_rgb = reconstruct_rgb(compare_data);
+
+            similarity = Math.abs(rms(master_rgb, compare_rgb) - 100);
+            sim_score = document.getElementById('similarity-score');
+            sim_score.innerHTML = similarity.toFixed(2) + '%';
+        }
     };
 
     canvas.addEventListener('mousemove', preview);

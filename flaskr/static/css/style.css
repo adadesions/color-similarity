@@ -21,6 +21,10 @@ body {
     font-weight: bold;
 }
 
+.text-color {
+    color: #FFF27A;
+}
+
 .border-bold {
     border: 10px solid #563d7c;
 }
@@ -63,4 +67,24 @@ body {
 .analysis-label {
     margin-left: 1em;
     font-size: 1.5em;
+}
+
+.sample-size {
+    margin: 1em;
+}
+
+/* Footer */
+.ada-footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4em;
+    color: white;
+    text-align: center;
+    padding-top: 1em;
+}
+
+input {
+    padding-left: 0.5em;
 }

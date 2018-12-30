@@ -10,7 +10,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-purple">
-            <a class="navbar-brand" href="#">Qolors</a>
+            <a class="navbar-brand text-color" href="#">Qolors</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -19,7 +19,6 @@
                 <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="#">Features</a>
                 <a class="nav-item nav-link" href="#">Pricing</a>
-                <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </div>
             </div>
     </nav>
@@ -70,18 +69,40 @@
                             <div class="topic">
                                 <u>Result</u>
                             </div>
-                            <br>
                             <div class="analysis-label">
-                                Similarity-score: <span>0%</span>
+                                Similarity-score: <span id="similarity-score">0%</span>
                             </div>
-
                         </div>
+                </div>
+                <div class="row border-half do-flex">
+                    <div class="topic">
+                        <u>Configurations</u>
+                    </div>
+                    <div class="row sample-size">
+                        <div class="col-lg-6">
+                            <label for="filename">Filename: </label>
+                            <input type="text" name="filename" id="filename" value="train_1_resize.jpg">
+                            <br><br>
+                            <label for="sample-width">Width: </label>
+                            <input type="text" name="sample-width" id="sample-width" value="200">
+                        </div>
+                        <div class="col-lg-6">
+                            <br><br>
+                            <label for="sample-height">Height: </label>
+                            <input type="text" name="sample-height" id="sample-height" value="200">
+                        </div>
+                    </div>
 
                 </div>
             </div>
         </div>
     </div>
 
+<!-- Footer -->
+    <div class="bg-purple ada-footer">
+        <h3>Project-Qolors</h3>
+    </div>
+<!-- Footer -->
 
     <script type="text/javascript" src="{{url_for('static', filename='js/zoom.js')}}"></script>
 </body>
