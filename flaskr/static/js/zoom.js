@@ -3,6 +3,7 @@
     To draw an image and get image data to other canvas
 */
 
+// Main Scope
 init();
 filename = document.getElementById('filename');
 filename.addEventListener('change', init);
@@ -10,6 +11,7 @@ filename.addEventListener('change', init);
 
 //  Import file to system
 function init(){
+    // Initialization
     var img = new Image();
     filename = document.getElementById('filename').value;
     img.src = '../data/'+filename;
@@ -20,6 +22,7 @@ function init(){
 
 
 function reconstruct_rgb(data) {
+    // Reconstruction image from Javascript format
     recon_img = [];
     for(var i = 0, n = data.length; i < n; i += 4) {
         var red = data[i];
@@ -32,6 +35,7 @@ function reconstruct_rgb(data) {
 
 
 function norm(x, y) {
+    // L2-Norm function
     // x, y are a column vector.
     if(x.length == y.length) {
         sum = 0;
@@ -48,6 +52,7 @@ function norm(x, y) {
 
 
 function rms(x, y) {
+    // Roots-Mean-Squrt-Error
     // x, y are a column vector.
 
     if(x.length != y.length) return -1;
