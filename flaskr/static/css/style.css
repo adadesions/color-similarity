@@ -8,7 +8,7 @@ body {
 }
 
 .navbar {
-    margin-bottom: 0em;
+    margin-bottom: 0;
 }
 
 .navbar-brand {
@@ -48,5 +48,19 @@ body {
 
 .font-purple {
     color: #7DF9FF;
+}
 
+.topic {
+    font-size: 1.5em;
+    margin-left: 1em;
+}
+
+.do-flex {
+    display: flex;
+    flex-flow: column;
+}
+
+.analysis-label {
+    margin-left: 1em;
+    font-size: 1.5em;
 }
