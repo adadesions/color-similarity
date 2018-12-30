@@ -105,7 +105,7 @@ function draw(img) {
         ctx.drawImage(img, 0, 0, imWidth, imHeight);
 
         // get image to from specific region
-        crop_img = ctx.getImageData(x+5, y+5, cw-10, ch-10);
+        crop_img = ctx.getImageData(x, y, cw, ch);
 
         // Drawing a rectangle which following the pointer
         ctx.beginPath();
@@ -135,6 +135,8 @@ function draw(img) {
             compare_rgb = reconstruct_rgb(compare_data);
 
             similarity = Math.abs(rms(master_rgb, compare_rgb) - 100);
+            if (similarity > 100) similarity = 0;
+
             sim_score = document.getElementById('similarity-score');
             sim_score.innerHTML = similarity.toFixed(2) + '%';
         }
