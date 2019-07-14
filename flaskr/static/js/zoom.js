@@ -7,6 +7,8 @@
 init();
 filename = document.getElementById('filename');
 filename.addEventListener('change', init);
+color_checkbox = document.getElementById('rgb-checkbox');
+color_checkbox.addEventListener('change', color_error);
 
 
 //  Import file to system
@@ -55,6 +57,7 @@ function rms(x, y) {
     // Roots-Mean-Squrt-Error
     // x, y are a column vector.
 
+    // Maximum Mutual Imformation
     if(x.length != y.length) return -1;
 
     vec = [];
@@ -142,6 +145,18 @@ function draw(img) {
             similarity = Math.abs(rms(master_rgb, compare_rgb) - 100);
             if (similarity > 100) similarity = 0;
 
+            is_color_test = document.getElementById('rgb-checkbox').checked;
+            if (is_color_test) {
+                master = master_rgb[0]
+                sample = compare_rgb[0]
+                r_diff = Math.abs(master[0]-sample[0]);
+                g_diff = Math.abs(master[1]-sample[1]);
+                b_diff = Math.abs(master[2]-sample[2]);
+                console.log(r_diff)
+                let rgb_score = document.getElementById('rgb-score');
+                rgb_score.innerHTML = `(${r_diff}, ${g_diff}, ${b_diff})`
+            }
+
             sim_score = document.getElementById('similarity-score');
             sim_score.innerHTML = similarity.toFixed(2) + '%';
         }
@@ -150,4 +165,15 @@ function draw(img) {
     canvas.addEventListener('mousemove', preview);
     canvas.addEventListener('click', () => crop_fnc('cap-master'));
     canvas.addEventListener('mousemove', () => crop_fnc('cap-compare'));
+}
+
+function color_error() {
+    if (this.checked) {
+        document.getElementById('sample-width').value = 1;
+        document.getElementById('sample-height').value = 1;
+    }
+    else {
+        document.getElementById('sample-width').value = 100;
+        document.getElementById('sample-height').value = 100;
+    }
 }

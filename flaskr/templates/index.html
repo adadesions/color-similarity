@@ -18,7 +18,6 @@
                 <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="#">Features</a>
-                <a class="nav-item nav-link" href="#">Pricing</a>
                 </div>
             </div>
     </nav>
@@ -72,6 +71,9 @@
                             <div class="analysis-label">
                                 Similarity-score: <span id="similarity-score">0%</span>
                             </div>
+                            <div class="analysis-label">
+                                    (R, G, B) Error: <span id="rgb-score">(0, 0, 0)</span>
+                            </div>
                         </div>
                 </div>
                 <div class="row border-half do-flex">
@@ -85,14 +87,20 @@
                             <br><br>
                             <label for="sample-width">Width: </label>
                             <input type="text" name="sample-width" id="sample-width" value="100">
+                            <div class="checkbox">
+                                <label class="label-rgb">
+                                    <input id="rgb-checkbox" type="checkbox" name="rgb" value="rgb">
+                                    Color Error Test
+                                </label>
+                            </div>
                         </div>
                         <div class="col-lg-6">
                             <br><br>
                             <label for="sample-height">Height: </label>
                             <input type="text" name="sample-height" id="sample-height" value="100">
                         </div>
+                        
                     </div>
-
                 </div>
             </div>
         </div>
