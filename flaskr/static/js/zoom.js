@@ -142,17 +142,17 @@ function draw(img) {
             master_rgb = reconstruct_rgb(master_data);
             compare_rgb = reconstruct_rgb(compare_data);
 
-            similarity = Math.abs(rms(master_rgb, compare_rgb) - 100);
+            similarity = Math.abs(rms(master_rgb, compare_rgb)-100);
             if (similarity > 100) similarity = 0;
 
             is_color_test = document.getElementById('rgb-checkbox').checked;
             if (is_color_test) {
                 master = master_rgb[0]
                 sample = compare_rgb[0]
-                r_diff = Math.abs(master[0]-sample[0]);
-                g_diff = Math.abs(master[1]-sample[1]);
-                b_diff = Math.abs(master[2]-sample[2]);
-                console.log(r_diff)
+                r_diff = (master[0]-sample[0]);
+                g_diff = (master[1]-sample[1]);
+                b_diff = (master[2]-sample[2]);
+
                 let rgb_score = document.getElementById('rgb-score');
                 rgb_score.innerHTML = `(${r_diff}, ${g_diff}, ${b_diff})`
             }
